@@ -1,17 +1,26 @@
 use borsh::BorshDeserialize;
 use solana_program::program_error::ProgramError;
 
+pub struct AccountState {
+    pub title: String,
+    pub rating: u8,
+    pub description: String,
+    pub location: String, // New field
+}
+
 pub enum ReviewInstruction {
     AddReview {
         title: String,
         rating: u8,
         description: String,
+        location: String, // New field
     },
 
     UpdateReview {
         title: String,
         rating: u8,
         description: String,
+        location: String, // New field
     },
     
 }

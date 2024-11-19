@@ -10,14 +10,18 @@ export const fetchReviews = async (
     const accounts = await connection.getProgramAccounts(
         new web3.PublicKey(REVIEW_PROGRAM_ID),
         {
-            dataSlice: { offset: 2, length: 18 },
+            //dataSlice: { offset: 2, length: 18 },
             filters: [],
         }
     );
+
+    // Extract public keys of the accountsV
     account_list = accounts.map((account) => account.pubkey);
 
+    // Fetch detailed information for multiple accounts 
     const keys = await connection.getMultipleAccountsInfo(account_list);
 
+    // Deserialize account data into Review objects
     const reviews = keys.reduce((accum: Review[], account) => {
         const rew = Review.deserialize(account?.data);
         if (!rew) {
